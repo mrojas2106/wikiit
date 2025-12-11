@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Artículos Recientes</h2>
+{{#if (hasRole user "editor,admin")}}
+<a href="/articles/create" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Nuevo Artículo
+</a>
+{{/if}}
+        </div>
+
+        {{#if articles.length}}
+            {{#each articles}}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="card-title">
+                            <a href="/articles/view/{{this.id}}" class="text-decoration-none">{{this.title}}</a>
+                        </h5>
+                        <span class="badge bg-secondary">{{this.category_name}}</span>
+                    </div>
+                    
+<p class="card-text text-muted">
+    {{#if this.content}}
+        {{#if (contains this.content '<img')}}📷 {{/if}}
+        {{getPreview this.content 150}}
+    {{else}}
+        Sin contenido...
+    {{/if}}
+</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-user"></i> {{this.username}} | 
+                            <i class="fas fa-calendar"></i> {{formatDate this.created_at}} |
+                            <i class="fas fa-comments"></i> {{this.comment_count}} comentarios
+                        </small>
+                        <a href="/articles/view/{{this.id}}" class="btn btn-sm btn-outline-primary">Leer más</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No hay artículos publicados aún.
+                {{#if user}}
+                <a href="/articles/create" class="alert-link">¡Sé el primero en crear uno!</a>
+                {{/if}}
+            </div>
+        {{/if}}
+        <br>
+        <a href="/articles">Ver mas articulos</a>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-tags"></i> Categorías</h5>
+            </div>
+            <div class="card-body">
+                {{#if categories.length}}
+                <div class="list-group list-group-flush">
+                    {{#each categories}}
+                    <a href="/articles/category/{{this.id}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        {{this.name}}
+                        <span class="badge bg-primary rounded-pill">{{this.article_count}}</span>
+                    </a>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="text-muted">No hay categorías disponibles.</p>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-chart-line"></i> Estadísticas</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h4 class="text-primary">{{articulos.length}}</h4>
+                        <small class="text-muted">Artículos</small>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-success">{{categories.length}}</h4>
+                        <small class="text-muted">Categorías</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
