@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>{{title}}</h2>
+{{#if (hasRole user "editor,admin")}}
+<a href="/articles/create" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Nuevo Artículo
+</a>
+{{/if}}
+        </div>
+
+        {{#if searchQuery}}
+        <div class="alert alert-info">
+            <i class="fas fa-search"></i> Mostrando resultados para: "<strong>{{searchQuery}}</strong>"
+            <a href="/articles" class="float-end btn btn-sm btn-outline-primary">Ver todos los artículos</a>
+        </div>
+        {{/if}}
+
+        {{#if articles.length}}
+            {{#each articles}}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="card-title">
+                            <a href="/articles/view/{{this.id}}" class="text-decoration-none">{{this.title}}</a>
+                        </h5>
+                        <span class="badge bg-secondary">{{this.category_name}}</span>
+                    </div>
+<p class="card-text text-muted">
+    {{#if this.content}}
+        {{#if (contains this.content '<img')}}
+            📷 {{getPreview this.content 180}}
+        {{else}}
+            {{getPreview this.content 200}}
+        {{/if}}
+    {{else}}
+        Sin contenido...
+    {{/if}}
+</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-user"></i> {{this.username}} | 
+                            <i class="fas fa-calendar"></i> {{formatDate this.created_at}} |
+                            <i class="fas fa-comments"></i> {{this.comment_count}} comentarios
+                        </small>
+                        <a href="/articles/view/{{this.id}}" class="btn btn-sm btn-outline-primary">Leer más</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <div class="alert alert-warning text-center">
+                <i class="fas fa-exclamation-triangle"></i> No se encontraron artículos.
+                {{#if user}}
+                <a href="/articles/create" class="alert-link">¡Crea el primero!</a>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-filter"></i> Filtros</h5>
+            </div>
+            <div class="card-body">
+                <h6>Categorías</h6>
+                <div class="list-group list-group-flush">
+                    <a href="/articles" class="list-group-item list-group-item-action {{#unless currentCategory}}active{{/unless}}">
+                        Todas las categorías
+                    </a>
+                    {{#each categories}}
+                    <a href="/articles/category/{{this.id}}" 
+                       class="list-group-item list-group-item-action {{#if (eq this.id ../currentCategory)}}active{{/if}}">
+                        {{this.name}}
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

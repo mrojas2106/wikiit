@@ -1,0 +1,121 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="/articles">Artículos</a></li>
+        <li class="breadcrumb-item active">{{article.title}}</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+            <h1 class="card-title">{{article.title}}</h1>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    {{#if user}}
+                    {{#if (or (eq user.id article.author_id) (eq user.role "admin"))}}
+                    <li><a class="dropdown-item" href="/articles/edit/{{article.id}}"><i class="fas fa-edit"></i> Editar</a></li>
+                    <li>
+                        <form action="/articles/delete/{{article.id}}?_method=DELETE" method="POST" class="d-inline">
+                            <button type="submit" class="dropdown-item text-danger" onclick="return confirm('¿Estás seguro de eliminar este artículo?')">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </li>
+                    {{/if}}
+                   {{/if}} 
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-share"></i> Compartir</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <span class="badge bg-primary">{{article.category_name}}</span>
+                {{#if article.tags}}
+                    {{#each (split article.tags ',')}}
+                    <span class="badge bg-secondary">{{this}}</span>
+                    {{/each}}
+                {{/if}}
+            </div>
+            <small class="text-muted">
+                <i class="fas fa-user"></i> {{article.username}} | 
+                <i class="fas fa-calendar"></i> {{formatDate article.created_at}}
+            </small>
+        </div>
+
+        <div class="article-content">
+            <br>
+            <br>
+            {{{article.content}}}
+        </div>
+
+        <div class="mt-4 pt-4 border-top">
+            <small class="text-muted">
+                <i class="fas fa-clock"></i> 
+                Última actualización: {{formatDate article.updated_at}}
+            </small>
+        </div>
+    </div>
+</div>
+
+<!-- Comentarios -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">
+            <i class="fas fa-comments"></i> Comentarios 
+            <span class="badge bg-secondary">{{comments.length}}</span>
+        </h5>
+    </div>
+    
+    <div class="card-body">
+        {{#if user}}
+        <form action="/articles/{{article.id}}/comment" method="POST" class="mb-4">
+            <div class="mb-3">
+                <label for="content" class="form-label">Agregar comentario</label>
+                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Escribe tu comentario..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Publicar Comentario</button>
+        </form>
+        {{else}}
+        <div class="alert alert-info">
+            <a href="/auth/login" class="alert-link">Inicia sesión</a> para publicar un comentario.
+        </div>
+        {{/if}}
+
+        {{#if comments.length}}
+            {{#each comments}}
+            <div class="card mb-3 {{#if (eq this.user_id ../user.id)}}border-primary{{/if}}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="card-title mb-1">
+                                <i class="fas fa-user"></i> {{this.username}}
+                                {{#if (eq this.user_id ../article.author_id)}}
+                                <span class="badge bg-success ms-1">Autor</span>
+                                {{/if}}
+                            </h6>
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> {{formatDate this.created_at}}
+                            </small>
+                        </div>
+                        {{#if (or (eq this.user_id ../user.id) (eq ../user.role "admin"))}}
+                        <form action="/comments/delete/{{this.id}}?_method=DELETE" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este comentario?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                        {{/if}}
+                    </div>
+                    <p class="card-text mt-2">{{this.content}}</p>
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <p class="text-muted text-center">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+        {{/if}}
+    </div>
+</div>
