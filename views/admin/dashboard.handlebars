@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4"><i class="fas fa-cog"></i> Panel de Administración</h1>
+    </div>
+</div>
+
+<!-- Estadísticas -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>{{stats.totalUsers}}</h4>
+                        <p>Usuarios</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>{{stats.totalArticles}}</h4>
+                        <p>Artículos</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-file-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>{{stats.totalCategories}}</h4>
+                        <p>Categorías</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-tags fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4>{{stats.totalComments}}</h4>
+                        <p>Comentarios</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-comments fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navegación Admin -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <a href="/admin/users" class="btn btn-outline-primary btn-lg w-100 mb-2">
+                            <i class="fas fa-users"></i><br>
+                            Gestión de Usuarios
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/admin/categories" class="btn btn-outline-success btn-lg w-100 mb-2">
+                            <i class="fas fa-tags"></i><br>
+                            Gestión de Categorías
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/articles" class="btn btn-outline-info btn-lg w-100 mb-2">
+                            <i class="fas fa-file-alt"></i><br>
+                            Ver Artículos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Últimos Artículos -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-file-alt"></i> Últimos Artículos</h5>
+            </div>
+            <div class="card-body">
+                {{#if articles.length}}
+                <div class="list-group list-group-flush">
+                    {{#each articles}}
+                    <a href="/articles/view/{{this.id}}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{this.title}}</h6>
+                            <small>{{formatDate this.created_at}}</small>
+                        </div>
+                        <p class="mb-1 text-muted small">Por: {{this.username}}</p>
+                    </a>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="text-muted text-center">No hay artículos.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Últimos Usuarios -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-users"></i> Últimos Usuarios</h5>
+            </div>
+            <div class="card-body">
+                {{#if users.length}}
+                <div class="list-group list-group-flush">
+                    {{#each users}}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div>
+                                <h6 class="mb-1">{{this.username}}</h6>
+                                <p class="mb-1 text-muted small">{{this.email}}</p>
+                            </div>
+                            <span class="badge bg-{{#if (eq this.role 'admin')}}danger{{else}}secondary{{/if}}">
+                                {{this.role}}
+                            </span>
+                        </div>
+                        <small class="text-muted">Registrado: {{formatDate this.created_at}}</small>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="text-muted text-center">No hay usuarios registrados.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

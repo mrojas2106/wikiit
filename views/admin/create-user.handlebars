@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</h1>
+    <a href="/admin/users" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver a Usuarios
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Información del Usuario</h5>
+            </div>
+            <div class="card-body">
+                <form action="/admin/users/create" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nombre de Usuario *</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña *</label>
+                                <input type="password" class="form-control" id="password" name="password" minlength="6" required>
+                                <div class="form-text">Mínimo 6 caracteres</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="confirm_password" class="form-label">Confirmar Contraseña *</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Rol del Usuario</label>
+                        <select class="form-select" id="role" name="role">
+                            <option value="user">Usuario</option>
+                            <option value="editor">Editor</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                        <div class="form-text">
+                            <strong>Usuario:</strong> Puede leer y comentar artículos<br>
+                            <strong>Editor:</strong> Puede crear y editar sus artículos<br>
+                            <strong>Administrador:</strong> Acceso completo al sistema
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/admin/users" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Crear Usuario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="card-title mb-0"><i class="fas fa-info-circle"></i> Información sobre Roles</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6><span class="badge bg-secondary">Usuario</span></h6>
+                        <ul class="small">
+                            <li>Ver artículos</li>
+                            <li>Comentar</li>
+                            <li>Buscar contenido</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><span class="badge bg-info">Editor</span></h6>
+                        <ul class="small">
+                            <li>Todos los permisos de Usuario</li>
+                            <li>Crear artículos</li>
+                            <li>Editar sus propios artículos</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><span class="badge bg-danger">Administrador</span></h6>
+                        <ul class="small">
+                            <li>Todos los permisos anteriores</li>
+                            <li>Gestión de usuarios</li>
+                            <li>Gestión de categorías</li>
+                            <li>Moderar todo el contenido</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

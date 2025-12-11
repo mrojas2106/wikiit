@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-tags"></i> Gestión de Categorías</h1>
+    <a href="/admin/dashboard" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Volver al Dashboard
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="fas fa-plus"></i> Nueva Categoría</h5>
+            </div>
+            <div class="card-body">
+                <form action="/categories/create" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre de la categoría</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save"></i> Crear Categoría
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Categorías Existentes</h5>
+            </div>
+            <div class="card-body">
+                {{#if categories.length}}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Artículos</th>
+                                <th>Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each categories}}
+                            <tr>
+                                <td>{{this.id}}</td>
+                                <td>
+                                    <a href="/articles/category/{{this.id}}" class="text-decoration-none">
+                                        {{this.name}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{this.article_count}}</span>
+                                </td>
+                                <td>{{formatDate this.created_at}}</td>
+                                <td>
+                                    <form action="/categories/delete/{{this.id}}?_method=DELETE" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                                onclick="return confirm('¿Estás seguro de eliminar esta categoría?')"
+                                                {{#if this.article_count}}disabled title="No se puede eliminar categorías con artículos"{{/if}}>
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                {{else}}
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> No hay categorías creadas.
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
