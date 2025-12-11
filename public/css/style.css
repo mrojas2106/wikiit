@@ -1,0 +1,404 @@
+/* Wiki IT - Custom Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+}
+
+/* Layout para footer siempre abajo */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Contenido principal que se expande */
+main {
+    flex: 1 0 auto;
+}
+
+/* Navbar customization */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Card enhancements */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos específicos para el contenido del artículo */
+.article-content {
+    line-height: 0.5;
+    font-size: 1.1rem;
+}
+
+/* Reset para párrafos dentro del contenido del artículo */
+.article-content p {
+    margin-bottom: 1.2rem;
+    margin-top: 0;
+    line-height: 0.5;
+}
+
+/* Si el contenido viene de un editor WYSIWYG (como Quill, TinyMCE, etc.) */
+.article-content p:first-child {
+    margin-top: 0;
+}
+
+.article-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Espaciado entre párrafos consecutivos */
+.article-content p + p {
+    margin-top: 0;
+}
+
+/* Si el contenido tiene divs con espaciado */
+.article-content div {
+    margin-bottom: 1.2rem;
+}
+
+.article-content div:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilos para listas dentro del artículo */
+.article-content ul,
+.article-content ol {
+    margin-top: 1rem;
+    margin-bottom: 1.2rem;
+    padding-left: 2rem;
+}
+
+.article-content li {
+    margin-bottom: 0.5rem;
+    line-height: 0.5;
+}
+
+.article-content li:last-child {
+    margin-bottom: 0;
+}
+
+.article-content h1, 
+.article-content h2, 
+.article-content h3, 
+.article-content h4, 
+.article-content h5, 
+.article-content h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+
+.article-content code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    color: var(--danger-color);
+}
+
+.article-content pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.article-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin-left: 0;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* Badge enhancements */
+.badge {
+    font-size: 0.75em;
+}
+
+/* Comment styling */
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+/* Search box */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button enhancements */
+.btn {
+    border-radius: 0.375rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+/* Alert enhancements */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-info {
+    background-color: #cff4fc;
+    color: #055160;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+/* Table enhancements */
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+/* Footer styling - SIEMPRE ABAJO */
+footer {
+    margin-top: auto;
+    background-color: #343a40 !important;
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-nav .dropdown-menu {
+        position: static;
+        float: none;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-group .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Custom utilities */
+.text-decoration-underline:hover {
+    text-decoration: underline !important;
+}
+
+.border-left-primary {
+    border-left: 4px solid var(--primary-color) !important;
+}
+
+.border-left-success {
+    border-left: 4px solid var(--success-color) !important;
+}
+
+.border-left-info {
+    border-left: 4px solid var(--info-color) !important;
+}
+
+/* Hover effects */
+.hover-shadow:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Code block styling */
+.code-block {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Asegurar que páginas con poco contenido mantengan el footer abajo */
+.min-height-content {
+    min-height: 60vh;
+}
+
+/* Estilos para imágenes en artículos */
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* Asegurar que el contenido del artículo se ajuste correctamente */
+.article-content {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Contenedor específico para imágenes grandes */
+.article-content figure {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.article-content figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.article-content figcaption {
+    margin-top: 8px;
+    font-style: italic;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+/* Asegurar que las tablas también sean responsivas */
+.article-content table {
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+
+/* Estilos para iframes y elementos embebidos */
+.article-content iframe,
+.article-content video {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Mejorar la legibilidad del texto alrededor de imágenes */
+.article-content p {
+    line-height: 1;
+    margin-bottom: 0.6rem;
+}
+
+/* Estilos específicos para el editor Quill en la vista */
+.ql-editor img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Asegurar que el card body contenga bien las imágenes */
+.card-body {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Media queries para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    .article-content img {
+        margin: 15px 0;
+        border-radius: 6px;
+    }
+    
+    .article-content figure {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .article-content img {
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Estilos específicos para contenido de editores WYSIWYG */
+.article-content .ql-editor p {
+    margin-bottom: 1.2rem;
+    margin-top: 0;
+}
+
+.article-content .ql-editor h1,
+.article-content .ql-editor h2,
+.article-content .ql-editor h3,
+.article-content .ql-editor h4,
+.article-content .ql-editor h5,
+.article-content .ql-editor h6 {
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+/* Espaciado después de encabezados */
+.article-content h1 + p,
+.article-content h2 + p,
+.article-content h3 + p,
+.article-content h4 + p,
+.article-content h5 + p,
+.article-content h6 + p {
+    margin-top: 0.5rem;
+}
+
+h1.card-title {
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
